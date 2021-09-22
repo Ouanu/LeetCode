@@ -1,29 +1,43 @@
 #include<iostream>
 #include<set>
+#include<map>
+#include<algorithm>
+#include<limits.h>
+#include<math.h>
 using namespace std;
 
-int firstUniqChar(string s);
+int myAtoi(string s);
 int main(){
-    int c;
-    cin >> c;
-    int result;
-    result = reverse(c);
-    cout << result << endl;
+    string s = "-+3";
+    int flag = myAtoi(s);
+    cout << flag << endl;
     return 0;
 }
-int firstUniqChar(string s) {
-        set<char> r;
+int myAtoi(string s) {
+        string checked;
+        int cnt=0;
         for(char c:s){
-            if(!r.insert(c).second){
-                r.erase(c);
+            if(isdigit(c)) {
+                checked += c;
+            } else if(c=='-'||c=='+'){
+                checked+=c;
+                cnt++;
+                cout << cnt << endl;
+                if(cnt==2)break;
+            } else if(c==' '){
+                continue;
+            } else {
+                break;
             }
         }
-        
-        for(int i=0; i<s.size(); i++){
-
-            if(r.begin().operator==s[i]){
-                return i;
-            }
+        if(checked.size() == 0 || cnt == 2){
+            return 0;
         }
-        return -1;
+        if(stod(checked)> INT32_MAX){
+            return pow(2,31);
+        } else if(stod(checked) < INT32_MIN){
+            return 0-pow(2,31);
+        } else {
+            return stoi(checked);
+        }
     }
