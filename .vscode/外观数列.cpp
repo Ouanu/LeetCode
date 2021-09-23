@@ -1,20 +1,6 @@
-#include<iostream>
-#include<set>
-#include<map>
-#include<algorithm>
-#include<limits.h>
-#include<math.h>
-using namespace std;
-
-string countAndSay(int n);
-int main(){
-    string haystack = "abc";
-    string needle = "c";
-    int flag = strStr(haystack, needle);
-    cout << flag << endl;
-    return 0;
-}
-string countAndSay(int n) {
+class Solution {
+public:
+    string countAndSay(int n) {
         if(n==1)return "1";
         string s=countAndSay(n-1);
         string r;
@@ -30,3 +16,4 @@ string countAndSay(int n) {
         }
         return r;
     }
+};
