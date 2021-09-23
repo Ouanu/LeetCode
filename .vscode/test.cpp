@@ -1,32 +1,41 @@
-#include<iostream>
-#include<set>
-#include<map>
-#include<algorithm>
-#include<limits.h>
-#include<math.h>
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <math.h>
 using namespace std;
 
-string countAndSay(int n);
-int main(){
-    string haystack = "abc";
-    string needle = "c";
-    int flag = strStr(haystack, needle);
-    cout << flag << endl;
+string longestCommonPrefix(vector<string> &strs);
+string compare(string s, string t);
+
+int main()
+{
+    vector<string> strs = {"abfdas", "abd"};
+    string s = longestCommonPrefix(strs);
+    cout << s << endl;
     return 0;
 }
-string countAndSay(int n) {
-        if(n==1)return "1";
-        string s=countAndSay(n-1);
-        string r;
-        int cnt=1;
-        for(int i=0; i<s.size(); i++){
-            if(s[i]!=s[i+1]){
-                r.push_back(cnt+'0');
-                r.push_back(s[i]);
-                cnt=1;
-            }else{
-                cnt++;
-            }
-        }
-        return r;
+string longestCommonPrefix(vector<string> &strs)
+{
+    if(strs.size()<=1)return strs[0];
+    int length = strs.size();
+    string t=strs[0];
+    for(int i=0; i<length-1; i++){
+        t=compare(t, strs[i+1]);
     }
+    return t;
+}
+
+string compare(string s, string t){
+    int left=0, right=0;
+    string re;
+    for(;left<s.size()&&right<t.size();){
+        if(s[left] == t[right]){
+            re.push_back(s[left]);
+            left++;
+            right++;
+        }else{
+            break;
+        }
+    }
+    return re;
+}
