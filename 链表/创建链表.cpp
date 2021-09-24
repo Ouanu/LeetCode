@@ -3,56 +3,64 @@ using namespace std;
 
 struct ListNode
 {
-    int value;
-    ListNode *Next;
-    ListNode(int x) : value(x), Next(NULL) {} //构造函数
+    int val;
+    ListNode *next;
+    ListNode() : val(0), next(nullptr) {}
+    ListNode(int x) : val(x), next(nullptr) {}
+    ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
-void deleteNode(ListNode *node);
-ListNode *removeNthFromEnd(ListNode *head, int n);
+ListNode *mergeTwoLists(ListNode *l1, ListNode *l2);
+
 int main()
 {
-    ListNode* head = new ListNode(1);
-    ListNode* secondPtr = new ListNode(2);
-    ListNode* thirdPtr = new ListNode(3);
-    ListNode* fourthPtr = new ListNode(4);
-    ListNode* fifthPtr = new ListNode(5);
-    head->Next = secondPtr;
-    secondPtr->Next = thirdPtr;
-    thirdPtr->Next = fourthPtr;
-    fourthPtr->Next = fifthPtr;
-    fifthPtr->Next = nullptr;
-    head = removeNthFromEnd(head, 2);
+    ListNode *head = new ListNode(1);
+    ListNode *secondPtr = new ListNode(2);
+    ListNode *thirdPtr = new ListNode(3);
+    ListNode *fourthPtr = new ListNode(4);
+    ListNode *fifthPtr = new ListNode(5);
+
+    head->next = secondPtr;
+    secondPtr->next = thirdPtr;
+    thirdPtr->next = fourthPtr;
+    fourthPtr->next = fifthPtr;
+    fifthPtr->next = nullptr;
+    anhead->next = ansecondPtr;
+
+    cout << head << endl;
+    head = mergeTwoLists(head, anhead);
     cout << "......." << endl;
-    cout << head->value << endl;
-    cout << head->Next->value << endl;
-    cout << head->Next->Next->value << endl;
-    cout << head->Next->Next->Next->value << endl;
+    cout << head->val << endl;
+    cout << head->next->val << endl;
+    cout << head->next->next->val << endl;
+    cout << head->next->next->next->val << endl;
+    cout << head->next->next->next->next->val << endl;
     return 0;
 }
-void deleteNode(ListNode *node)
+ListNode *mergeTwoLists(ListNode *l1, ListNode *l2)
 {
-    node->value = node->Next->value;
-    node->Next = node->Next->Next;
-}
-ListNode *removeNthFromEnd(ListNode *head, int n)
-{
-    int length = 0;
-    ListNode* node = head;
-    while (node != nullptr)
+    ListNode *result;
+    if (l1 && l2)
     {
-        length++;
-        node = node->Next;
+        if (l1->val < l2->val)
+        {
+            result = l1;
+            result->next = mergeTwoLists(l1->next, l2);
+        }
+        else
+        {
+            result = l2;
+            result->next = mergeTwoLists(l1, l2->next);
+        }
     }
-    if(length == n){
-        return node->Next;
-    }
-    node = head;
-    for (int i = 0; i < length - n - 1; i++)
+    else if (l1 == nullptr)
     {
-        node = node->Next;
+        return l2;
     }
-    node->Next = node->Next->Next;
-    
-    return head;
+    else if (l2 == nullptr)
+    {
+        return l1;
+    }
+
+    return result;
 }
