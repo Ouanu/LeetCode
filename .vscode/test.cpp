@@ -4,38 +4,61 @@
 #include <math.h>
 using namespace std;
 
-string longestCommonPrefix(vector<string> &strs);
-string compare(string s, string t);
+struct TreeNode
+{
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+};
+
+bool isValidBST(TreeNode *root);
 
 int main()
 {
-    vector<string> strs = {"abfdas", "abd"};
-    string s = longestCommonPrefix(strs);
-    cout << s << endl;
+    TreeNode *left = new TreeNode();
+    TreeNode *right = new TreeNode(1);
+    TreeNode *tree = new TreeNode(1, left, right);
+    bool checked = isValidBST(tree);
+    cout << checked << endl;
+
     return 0;
 }
-string longestCommonPrefix(vector<string> &strs)
-{
-    if(strs.size()<=1)return strs[0];
-    int length = strs.size();
-    string t=strs[0];
-    for(int i=0; i<length-1; i++){
-        t=compare(t, strs[i+1]);
-    }
-    return t;
-}
 
-string compare(string s, string t){
-    int left=0, right=0;
-    string re;
-    for(;left<s.size()&&right<t.size();){
-        if(s[left] == t[right]){
-            re.push_back(s[left]);
-            left++;
-            right++;
-        }else{
-            break;
-        }
+bool isValidBST(TreeNode *root)
+{
+    if (root->left == nullptr && root->right == nullptr)
+    {
+        return true;
     }
-    return re;
+    else
+    {
+        if(root->left != nullptr){
+            int val = root->left->val;
+            if(val > root->val){
+                return false;
+            }
+        } else if(root->right != nullptr){
+            int val = root->right->val;
+            if(val < root->val){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    bool checkLeft = isValidBST(root->left);
+    bool checkRight = isValidBST(root->right);
+    cout << "checkedLeft" << checkLeft << endl;
+    cout << "checkedRight" << checkRight << endl;
+    if (checkLeft && checkRight)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
