@@ -31,3 +31,26 @@ public:
         return head;
     }
 };
+
+//栈
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode* s = new ListNode(0, head);
+        stack<ListNode*> st;
+        ListNode* t = s;
+        while(t){
+            st.push(t);
+            t = t->next;
+        }
+        for(int i=0; i<n; i++){
+            st.pop();
+        }
+        ListNode* prev = st.top();
+        prev->next = prev->next->next;
+        ListNode* ans = s->next;
+        delete(s);
+        delete(t);
+        return ans;
+    }
+};
