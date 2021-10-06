@@ -3,21 +3,22 @@
 #include <vector>
 using namespace std;
 
-int findRepeatNumber(vector<int>& nums) {
-        int result = 0;
-        for(int n:nums){
-            result ^= n;
-            if(result != 0){
-                return n;
-            }
+int missingNumber(vector<int> &nums)
+{
+    int result = 0;
+    for(int i=0; i<=nums.size(); i++){
+        if(i<nums.size()){
+            result ^= nums[i];
         }
-        return NULL;
+        result ^= i;
     }
-
+    return result;
+}
 int main()
 {
-    vector<int> nums = {1, 2, 3, 4, 2};
-    int result = findRepeatNumber(nums);
+    vector<int> nums = {0, 1, 3};
+    int result = missingNumber(nums);
     cout << result << endl;
+
     return 0;
 }
