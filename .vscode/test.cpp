@@ -1,23 +1,26 @@
 #include <iostream>
-#include <stack>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
-int missingNumber(vector<int> &nums)
+int minArray(vector<int> &numbers)
 {
-    int result = 0;
-    for(int i=0; i<=nums.size(); i++){
-        if(i<nums.size()){
-            result ^= nums[i];
+    for (int i = 0; i < numbers.size(); i++)
+    {
+        if (numbers[i] > numbers[i + 1])
+        {
+            reverse(numbers.begin(), numbers.begin() + i);
+            reverse(numbers.begin() + i + 1, numbers.end());
+            reverse(numbers.begin(), numbers.end());
         }
-        result ^= i;
     }
-    return result;
+    int num = numbers[0];
+    return num;
 }
 int main()
 {
-    vector<int> nums = {0, 1, 3};
-    int result = missingNumber(nums);
+    vector<int> nums = {1,2,0,0,1};
+    int result = minArray(nums);
     cout << result << endl;
 
     return 0;
