@@ -10,6 +10,7 @@ public:
         }
         return result;
     }
+<<<<<<< HEAD
 };
 
 // 二分法 （重点）
@@ -25,4 +26,6 @@ public:
         }
         return i;
     }
+=======
+>>>>>>> 60cab792629d805a8e8344b4f8c86681da7f1473
 };
