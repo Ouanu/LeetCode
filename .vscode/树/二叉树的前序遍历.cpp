@@ -17,7 +17,7 @@ public:
     }
     vector<int> preOrder(vector<int> result, TreeNode* root){
         if(!root) return result;
-        else result.insert(result.end(), root->val);
+        result.push_back(root->val);
         result = preOrder(result, root->left);
         result = preOrder(result, root->right);
         return result;
